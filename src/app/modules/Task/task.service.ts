@@ -12,6 +12,9 @@ const createTask = async (payload: any) => {
   return result;
 };
 
+// get all tasks
+
+
 export const TaskServices = {
   createTask,
 };
