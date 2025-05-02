@@ -23,13 +23,31 @@ enum Role {
     USER
 }
 
+enum TaskStatus {
+    ALL_TASK
+    ONGOING
+    PENDING
+    IN_PROGRESS
+    COLLABORATIVE_TASK
+    DONE
+}
+
+enum TaskCategory {
+    ARTS_AND_CRAFT
+    NATURE
+    FAMILY
+    SPORT
+    FRIENDS
+    MEDITATION
+}
+
 // ---------------------------------------------------------
 //  MODELS
 // ---------------------------------------------------------
 
 model User {
     id           String     @id @default(auto()) @map("_id") @db.ObjectId
-    fullName    String
+    fullName     String
     email        String     @unique
     password     String
     profileImage String?    @default("https://i.ibb.co.com/XfLzVy23/download.png")
@@ -42,4 +60,15 @@ model User {
     updatedAt    DateTime   @updatedAt
 
     @@map("users")
+}
+
+model Task {
+    id          String       @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    status      TaskStatus
+    category    TaskCategory
+    date        DateTime
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
 }
