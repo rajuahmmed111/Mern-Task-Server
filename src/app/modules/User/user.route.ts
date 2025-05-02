@@ -16,16 +16,6 @@ router.post(
   UserController.createUser
 );
 
-// get new members
-router.get('/new-members', auth(), UserController.getNewMembers);
-
-router.put(
-  '/update',
-  auth(),
-  // validateRequest(userValidation.createUserSchema),
-  UserController.updateUser
-);
-
 // update user profile image
 router.patch(
   '/profile-update/:id',
@@ -36,14 +26,6 @@ router.patch(
 
 router.get('/', auth(), UserController.getAllUsers);
 router.get('/:id', auth(), UserController.getUserById);
-
-// update user first name and last name
-router.put(
-  '/update',
-  auth(),
-  // validateRequest(userValidation.createUserSchema),
-  UserController.updateUser
-);
 
 router.delete('/:id', auth(Role.ADMIN), UserController.deleteUser);
 

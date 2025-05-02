@@ -17,33 +17,6 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-
-// check user name
-const checkUsername = catchAsync(async (req: Request, res: Response) => {
-  const { firstName, lastName } = req.body;
-
-  if (!firstName || !lastName) {
-    return sendResponse(res, {
-      statusCode: httpStatus.BAD_REQUEST,
-      success: false,
-      message: 'First name and last name are required',
-    });
-  }
-
-  const userName = `${firstName.toLowerCase()}.${lastName.toLowerCase()}`;
-  const isUsernameTaken = await UserService.checkUsernameExists(userName);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: isUsernameTaken
-      ? 'Username is already taken'
-      : 'Username is available',
-    data: { userName, isUsernameTaken },
-  });
-});
-
-
 // get single user
 const getUserById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -57,7 +30,6 @@ const getUserById = catchAsync(async (req: Request, res: Response) => {
     data: { ...user, password: undefined },
   });
 });
-
 
 // get all users
 const getAllUsers = catchAsync(async (_req: Request, res: Response) => {
@@ -73,7 +45,6 @@ const getAllUsers = catchAsync(async (_req: Request, res: Response) => {
   });
 });
 
-
 // delete user
 const deleteUser = catchAsync(async (req: Request, res: Response) => {
   const userId = req.params.id;
@@ -87,35 +58,6 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
     message: 'User deleted successfully',
   });
 });
-
-
-// get new members
-const getNewMembers = catchAsync(async (req: Request, res: Response) => {
-  const newMembers = await UserService.getNewMembers();
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'New members fetched successfully',
-    data: newMembers,
-  });
-});
-
-// update user first name and last name
-const updateUser = catchAsync(async (req: Request, res: Response) => {
-  const user = req.user;
-  const data = req.body;
-
-  const result = await UserService.updateUser(user?.email, data);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User information updated successfully',
-    data: result,
-  });
-});
-
 
 // update user profile
 const updateUserProfileImage = catchAsync(
@@ -156,9 +98,6 @@ const UserController = {
   getAllUsers,
   deleteUser,
   getUserById,
-  checkUsername,
-  getNewMembers,
-  updateUser,
   updateUserProfileImage,
 };
 
