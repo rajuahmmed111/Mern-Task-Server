@@ -18,4 +18,7 @@ router.patch('/:id/status', TaskControllers.updateTaskStatus);
 // delete
 router.delete('/:id', TaskControllers.deleteTask);
 
+// filter on category
+router.get('/filter/category', TaskControllers.getTasksByCategory);
+
 export const taskRoute = router;

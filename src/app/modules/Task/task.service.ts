@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiErrors';
 import prisma from '../../../shared/prisma';
-import { TaskStatus } from '@prisma/client';
+import { TaskCategory, TaskStatus } from '@prisma/client';
 
 // create task
 const createTask = async (payload: any) => {
@@ -79,10 +79,28 @@ const deleteTask = async (id: string) => {
   };
 };
 
+const getTasksByCategory = async (category: TaskCategory) => {
+  const tasks = await prisma.task.findMany({
+    where: {
+      category,
+    },
+  });
+
+  if (tasks.length === 0) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'No tasks found for this category'
+    );
+  }
+
+  return tasks;
+};
+
 export const TaskServices = {
   createTask,
   getAllTasks,
   getSingleTask,
   updateTaskStatus,
   deleteTask,
+  getTasksByCategory,
 };

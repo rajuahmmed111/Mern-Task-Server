@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { TaskServices } from './task.service';
+import { TaskCategory } from '@prisma/client';
 
 // create task
 const createTask = catchAsync(async (req, res) => {
@@ -63,10 +64,24 @@ const deleteTask = catchAsync(async (req, res) => {
   });
 });
 
+// filter on category
+const getTasksByCategory = catchAsync(async (req, res) => {
+  const category = req.query.category as TaskCategory;
+
+  const result = await TaskServices.getTasksByCategory(category);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Tasks retrieved by category successfully',
+    data: result,
+  });
+});
+
 export const TaskControllers = {
   createTask,
   getAllTasks,
   getSingleTask,
   updateTaskStatus,
   deleteTask,
+  getTasksByCategory,
 };
