@@ -66,9 +66,11 @@ model Task {
     id          String       @id @default(auto()) @map("_id") @db.ObjectId
     title       String
     description String
-    status      TaskStatus
-    category    TaskCategory
+    status      TaskStatus   @default(PENDING)
+    category    TaskCategory @default(ARTS_AND_CRAFT)
     date        DateTime
     createdAt   DateTime     @default(now())
     updatedAt   DateTime     @updatedAt
+
+    @@map("tasks")
 }
