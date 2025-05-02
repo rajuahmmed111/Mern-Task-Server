@@ -1,5 +1,6 @@
 import prisma from '../../../shared/prisma';
 
+// create task
 const createTask = async (payload: any) => {
   const result = await prisma.task.create({
     data: {
@@ -7,6 +8,8 @@ const createTask = async (payload: any) => {
       date: new Date(),
     },
   });
+
+  return result;
 };
 
 export const TaskServices = {
