@@ -10,7 +10,6 @@ const createUserSchema = z.object({
   //   message:
   //     'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character',
   // }),
-  dateOfBirth: z.string(),
 });
 
 export const userValidation = {
