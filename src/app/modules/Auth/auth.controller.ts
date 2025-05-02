@@ -29,6 +29,7 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+// enter otp
 const enterOtp = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthServices.enterOtp(req.body);
 
@@ -48,6 +49,7 @@ const enterOtp = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// logout user
 const logoutUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.user.id;
   // Clear the token cookie
@@ -65,7 +67,7 @@ const logoutUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// get user profile
+// get my profile
 const getMyProfile = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.user;
   const result = await AuthServices.getMyProfile(id as string);

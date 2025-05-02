@@ -58,6 +58,7 @@ const login = async (email: string, password: string) => {
   };
 };
 
+// enter otp
 const enterOtp = async (payload: {
   otp: string;
   hexCode: string;
@@ -93,6 +94,7 @@ const enterOtp = async (payload: {
   return accessToken;
 };
 
+// get my profile
 const getMyProfile = async (id: string) => {
   const userProfile = await prisma.user.findUnique({
     where: { id },
@@ -103,8 +105,6 @@ const getMyProfile = async (id: string) => {
       profileImage: true,
       createdAt: true,
       updatedAt: true,
-      firstName: true,
-      lastName: true,
     },
   });
 
@@ -220,7 +220,6 @@ const forgotPassword = async (payload: { email: string }) => {
     resetPassLink,
   };
 };
-
 
 // reset password
 const resetPassword = async (token: string, newPassword: string) => {
